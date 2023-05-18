@@ -1,10 +1,15 @@
 global using CMG.TestSolution.Api.Models;
 global using CMG.TestSolution.Api.Services.CharacterService;
 global using CMG.TestSolution.Api.Dtos.Character;
+global using Microsoft.EntityFrameworkCore;
+using CMG.TestSolution.Api.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// builder.Services.AddTransient<DataContext>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
